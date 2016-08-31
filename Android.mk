@@ -18,7 +18,7 @@ LOCAL_PATH := $(call my-dir)
 
 ifeq ($(BOARD_VENDOR),samsung)
 ifeq ($(TARGET_BOARD_PLATFORM),msm8916)
-ifneq ($(filter j3ltespr e5lte,$(TARGET_DEVICE)),) 
+ifneq ($(filter j3ltespr,$(TARGET_DEVICE)),) 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 include $(CLEAR_VARS)
@@ -62,6 +62,32 @@ $(ISDB_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(ISDB_SYMLINKS)
 
+# keymaste
+KEYMASTER_IMAGES := \
+    keymaster.b00 keymaster.b01 keymaster.b02 keymaster.b03 keymaster.mdt
+
+FIRMWARE_KEYMASTER_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(FIRMWARE_KEYMASTER_IMAGES)))
+$(FIRMWARE_KEYMASTER_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Keymaster Firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_KEYMASTER_SYMLINKS)
+
+# Kiwi
+KEYMASTER_IMAGES := \
+    kiwi.b00 kiwi.b01 kiwi.b02 kiwi.b03 kiwi.mdt
+
+FIRMWARE_KEYMASTER_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(FIRMWARE_KEYMASTER_IMAGES)))
+$(FIRMWARE_KIWI_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "kiwi Firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_KIWI_SYMLINKS)
+
 # MCpay
 MCP_IMAGES := \
     mcpay.b00 mcpay.b01 mcpay.b02 mcpay.b03 mcpay.mdt
@@ -87,22 +113,31 @@ $(MLD_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(MLD_SYMLINKS)
+# playread
+FIRMWARE_PLAYREAD_IMAGES := \
+    playread.b00 playread.b01 playread.b02 playread.b03 playread.mdt
 
-# Modem
-MODEM_IMAGES := \
-    modem.b00 modem.b01 modem.b02 modem.b03 modem.b04 modem.b05 \
-    modem.b06 modem.b07 modem.b08 modem.b10 modem.b11 modem.b14 modem.b15 \
-    modem.b16 modem.b17 modem.b18 modem.b19 modem.b20 modem.b23 \
-    modem.b24 modem.b25 modem.b27 modem.b28 modem.mdt mba.mbn
-
-MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MODEM_IMAGES)))
-$(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Modem firmware link: $@"
+FIRMWARE_PLAYREAD_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FIRMWARE_PLAYREAD_IMAGES)))
+$(FIRMWARE_PLAYREAD_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Playread Firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
-	$(hide) ln -sf /firmware-modem/image/$(notdir $@) $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(MODEM_SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_PLAYREAD_SYMLINKS)
+
+# Venus
+FIRMWARE_VENUS_IMAGES := \
+    venus.b00 venus.b01 venus.b02 venus.b03 venus.b04 venus.mdt
+
+FIRMWARE_VENUS_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FIRMWARE_VENUS_IMAGES)))
+$(FIRMWARE_VENUS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Venus Firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_VENUS_SYMLINKS)
 
 # Prov
 PROV_IMAGES := \
