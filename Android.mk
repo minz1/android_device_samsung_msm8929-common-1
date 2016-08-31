@@ -113,18 +113,6 @@ $(MLD_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(MLD_SYMLINKS)
-# playread
-FIRMWARE_PLAYREAD_IMAGES := \
-    playread.b00 playread.b01 playread.b02 playread.b03 playread.mdt
-
-FIRMWARE_PLAYREAD_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FIRMWARE_PLAYREAD_IMAGES)))
-$(FIRMWARE_PLAYREAD_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Playread Firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_PLAYREAD_SYMLINKS)
 
 # Venus
 FIRMWARE_VENUS_IMAGES := \
