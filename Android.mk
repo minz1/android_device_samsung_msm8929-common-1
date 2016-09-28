@@ -17,7 +17,7 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(BOARD_VENDOR),samsung)
-ifeq ($(TARGET_BOARD_PLATFORM),msm8916)
+ifeq ($(TARGET_BOARD_PLATFORM),msm8929)
 ifneq ($(filter j3ltespr,$(TARGET_DEVICE)),) 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
